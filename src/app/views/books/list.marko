@@ -9,9 +9,9 @@
                 <td>ID</td>
                 <td>Título</td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Fundamentos Nodejs</td>
+            <tr for (book in data.books)>
+                <td>${book.id}</td>
+                <td>${book.titulo}</td>
             </tr>
         </table>
     </body>
