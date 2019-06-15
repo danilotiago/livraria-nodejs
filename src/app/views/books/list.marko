@@ -17,11 +17,11 @@
                 <td>${book.id}</td>
                 <td>${book.titulo}</td>
                 <td>${book.preco}</td>
-                <td><a href="#">Editar</a></td> 
+                <td><a href="/livros/${book.id}/edit">Editar</a></td> 
                 <td><a href="#" data-ref="${book.id}" data-type="remocao">Remover</a></td>
             </tr>
         </table>
 
-        <script src="./remove-book.js"></script>
+        <script src="/static/js/remove-book.js"></script>
     </body>
 </html>
