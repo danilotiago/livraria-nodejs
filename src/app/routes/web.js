@@ -1,3 +1,4 @@
+const BooksDAO = require('../DAO/booksDAO')
 const db = require('../../config/database')
 
 module.exports = (app) => {
@@ -16,15 +17,23 @@ module.exports = (app) => {
     
     app.get('/livros', function(req, resp) {
 
-        db.all('SELECT * FROM livros', function(err, books) {
-            
-            resp.marko(
+        const booksDAO = new BooksDAO(db)
+
+        booksDAO.get()
+            .then(books => resp.marko(
                 require('../views/books/list.marko'),
                 {
                     books
                 }
-            )
-            
-        })
+            ))
+            .catch(err => console.log(err))
+    })
+
+    app.get('/livros/novo', function(req, resp) {
+        resp.marko(require('../views/books/form.marko'))
+    })
+
+    app.post('/livros', function(req, resp) {
+        console.log(req.body)
     })
 }
