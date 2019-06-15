@@ -34,6 +34,16 @@ module.exports = (app) => {
     })
 
     app.post('/livros', function(req, resp) {
-        console.log(req.body)
+        
+        const booksDAO = new BooksDAO(db)
+
+        booksDAO.store(req.body)
+            .then(books => resp.marko(
+                require('../views/books/list.marko'),
+                {
+                    books
+                }
+            ))
+            .catch(err => console.log(err))
     })
 }
