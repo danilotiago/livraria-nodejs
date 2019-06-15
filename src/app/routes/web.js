@@ -38,12 +38,17 @@ module.exports = (app) => {
         const booksDAO = new BooksDAO(db)
 
         booksDAO.store(req.body)
-            .then(books => resp.marko(
-                require('../views/books/list.marko'),
-                {
-                    books
-                }
-            ))
+            .then(resp.redirect('/livros'))
+            .catch(err => console.log(err))
+    })
+
+    app.delete('/livros/:id', function(req, resp) {
+        
+        const id = req.params.id
+        const booksDAO = new BooksDAO(db)
+
+        booksDAO.destroy(id)
+            .then(() => resp.status(200).end())
             .catch(err => console.log(err))
     })
 }
