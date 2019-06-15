@@ -2,9 +2,12 @@
     <body>
         <h1>Cadastro de livros</h1>
 
-        <form action="/livros" method="post">
+        <form action="/livros/${data.book.id}" method="post">
 
-            <input type="hidden" id="id" name="id" value="${data.book.id}" />
+            <div if(data.book.id)>
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" id="id" name="id" value="${data.book.id}" />
+            </div>
 
             <div>
                 <label for="titulo">Titulo:</label>

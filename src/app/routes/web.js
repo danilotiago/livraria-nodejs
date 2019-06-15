@@ -52,20 +52,18 @@ module.exports = (app) => {
                 resp.marko(require('../views/books/form.marko'),
                     { book }
                 )
-            }
-                
-            )
+            })
             .catch(err => console.log(err))
     })
 
     app.put('/livros/:id', function(req, resp) {
-        
+
         const id   = req.params.id
         const data = req.body
         const booksDAO = new BooksDAO(db)
 
         booksDAO.update(data, id)
-            .then(() => resp.status(200).end())
+            .then(resp.redirect('/livros'))
             .catch(err => console.log(err))
     })
 
@@ -73,6 +71,8 @@ module.exports = (app) => {
         
         const id = req.params.id
         const booksDAO = new BooksDAO(db)
+
+        console.log(booksDAO)
 
         booksDAO.destroy(id)
             .then(() => resp.status(200).end())

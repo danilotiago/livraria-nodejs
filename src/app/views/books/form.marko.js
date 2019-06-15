@@ -21,9 +21,17 @@ function render(input, out, __component, component, state) {
 
   component_globals_tag({}, out);
 
-  out.w("<h1>Cadastro de livros</h1><form action=\"/livros\" method=\"post\"><input type=\"hidden\" id=\"id\" name=\"id\" value=\"" +
+  out.w("<h1>Cadastro de livros</h1><form action=\"/livros/" +
     marko_escapeXmlAttr(data.book.id) +
-    "\"><div><label for=\"titulo\">Titulo:</label><input type=\"text\" id=\"titulo\" name=\"titulo\" placeholder=\"coloque o titulo\" value=\"" +
+    "\" method=\"post\">");
+
+  if (data.book.id) {
+    out.w("<div><input type=\"hidden\" name=\"_method\" value=\"PUT\"><input type=\"hidden\" id=\"id\" name=\"id\" value=\"" +
+      marko_escapeXmlAttr(data.book.id) +
+      "\"></div>");
+  }
+
+  out.w("<div><label for=\"titulo\">Titulo:</label><input type=\"text\" id=\"titulo\" name=\"titulo\" placeholder=\"coloque o titulo\" value=\"" +
     marko_escapeXmlAttr(data.book.titulo) +
     "\"></div><div><label for=\"preco\">Preço:</label><input type=\"text\" id=\"preco\" name=\"preco\" placeholder=\"150.25\" value=\"" +
     marko_escapeXmlAttr(data.book.preco) +
@@ -33,7 +41,7 @@ function render(input, out, __component, component, state) {
 
   init_components_tag({}, out);
 
-  await_reorderer_tag({}, out, __component, "15");
+  await_reorderer_tag({}, out, __component, "17");
 
   out.w("</body></html>");
 }
