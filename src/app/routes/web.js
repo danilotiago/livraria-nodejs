@@ -1,10 +1,9 @@
-const { check } = require('express-validator/check')
-
 const HomeController = require('../controllers/HomeController')
 const homeController = new HomeController()
 
 const BooksController = require('../controllers/BooksController')
 const booksController = new BooksController()
+const Book = require('../Models/Book')
 
 module.exports = (app) => {
     app.get('/', homeController.index())
@@ -13,12 +12,7 @@ module.exports = (app) => {
 
     app.get(BooksController.routes().new, booksController.new())
 
-    app.post(BooksController.routes().store, [
-    
-        check('titulo').isLength({ min: 5 }).withMessage('O título deve ter pelo menos 5 caracteres'),
-        check('preco').isCurrency().withMessage('O preço deve ser um valor monetário')
-    
-    ], booksController.store())
+    app.post(BooksController.routes().store, Book.validations(), booksController.store())
 
     app.get(BooksController.routes().edit, booksController.edit())
 
