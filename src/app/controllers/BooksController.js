@@ -1,4 +1,19 @@
+const BooksDAO = require('../DAO/booksDAO')
+const db = require('../../config/database')
+const { validationResult } = require('express-validator/check')
+
 class BooksController {
+
+    static routes() {
+        return {
+            index: '/livros',
+            new: '/livros/novo',
+            store: '/livros',
+            edit: '/livros/:id/edit',
+            update: '/livros/:id',
+            delete: '/livros/:id'
+        }
+    }
 
     index() {
         return function(req, resp) {
@@ -37,7 +52,7 @@ class BooksController {
             const booksDAO = new BooksDAO(db)
     
             booksDAO.store(req.body)
-                .then(resp.redirect('/livros'))
+                .then(resp.redirect(BooksController.routes().index))
                 .catch(err => console.log(err))
         }
     }
@@ -66,7 +81,7 @@ class BooksController {
             const booksDAO = new BooksDAO(db)
     
             booksDAO.update(data, id)
-                .then(resp.redirect('/livros'))
+                .then(resp.redirect(BooksController.routes().index))
                 .catch(err => console.log(err))
         }
     }
