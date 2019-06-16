@@ -1,5 +1,11 @@
 class HomeController
 {
+    static routes() {
+        return {
+            index: '/'
+        }
+    }
+
     index() {
         return function(req, resp) {
             resp.send(`
